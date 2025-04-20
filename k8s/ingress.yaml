@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: demo-app-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"  # Change according to your ingress controller
+    # For SSL certificate
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  # TLS configuration (optional)
+  # tls:
+  # - hosts:
+  #   - demo-app.example.com
+  #   secretName: demo-app-tls
+  rules:
+  - host: demo-app.example.com  # Change according to your DNS settings
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: demo-app-service
+            port:
+              number: 80
