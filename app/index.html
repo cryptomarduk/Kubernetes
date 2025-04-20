@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes Demo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: {{APP_COLOR}};
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+        }
+        .info {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            text-align: left;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kubernetes Demo Application</h1>
+        
+        <div class="info">
+            <p><strong>Pod Information:</strong></p>
+            <ul>
+                <li>Hostname: <span id="hostname">Loading...</span></li>
+                <li>Background Color: {{APP_COLOR}} (from ConfigMap)</li>
+                <li>API Key (Masked): {{API_KEY}} (from Secret)</li>
+            </ul>
+        </div>
+        
+        <p>This application is running in a Kubernetes environment and uses ConfigMap and Secret resources.</p>
+        
+        <div class="footer">
+            Kubernetes Basics Demo Project
+        </div>
+    </div>
+
+    <script>
+        // Get hostname (window.location.hostname is usually the ingress host or service name)
+        document.getElementById('hostname').textContent = window.location.hostname;
+    </script>
+</body>
+</html>
