@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  labels:
+    app: demo-app
+spec:
+  replicas: 3  # Number of pods
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+      - name: demo-app
+        image: ${YOUR_DOCKERHUB_USERNAME}/k8s-demo-app:latest  # Replace with your username
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+        # Environment variables from ConfigMap
+        envFrom:
+        - configMapRef:
+            name: demo-app-config
+        # Environment variables from Secret
+        env:
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: demo-app-secret
+              key: API_KEY
+        # Liveness probe - is container running?
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          timeoutSeconds: 5
+        # Readiness probe - is container ready to receive traffic?
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
