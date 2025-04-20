@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-app-service
+  labels:
+    app: demo-app
+spec:
+  selector:
+    app: demo-app
+  ports:
+  - port: 80            # Service port
+    targetPort: 3000    # Pod port
+    protocol: TCP
+  type: ClusterIP       # Accessible only within the cluster
