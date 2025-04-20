@@ -4,7 +4,6 @@
 
 This project demonstrates a simple web application deployed on Kubernetes, showcasing fundamental Kubernetes concepts. It's ideal for learning about Deployment, Service, ConfigMap, Secret, and Ingress resources.
 
-![Architecture Diagram](./docs/architecture.png)
 
 ## Project Contents
 
